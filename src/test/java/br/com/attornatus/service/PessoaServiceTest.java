@@ -131,7 +131,7 @@ public class PessoaServiceTest {
 	}
 	
 	@Test
-	@DisplayName("Não deve editar uma pessoa")
+	@DisplayName("Não deve editar uma pessoa se não mandar paramentros")
 	public void should_not_edit_a_person() {
 		try {
 			Mockito.when(pessoaService.atualizarPessoa(1L, new HashMap<String,Object>()))
