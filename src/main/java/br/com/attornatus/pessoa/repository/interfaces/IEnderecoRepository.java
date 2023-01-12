@@ -14,7 +14,7 @@ import br.com.attornatus.pessoa.entity.Pessoa;
 @Repository
 public interface IEnderecoRepository extends JpaRepository<Endereco, Long> {
 	Endereco findEnderecoByCep(String cep);
-	
+
 	List<Endereco> findByPessoa(Pessoa pessoa);
 	
 	@Query("from Endereco where cep = :cep and pessoa.id = :pessoaId")

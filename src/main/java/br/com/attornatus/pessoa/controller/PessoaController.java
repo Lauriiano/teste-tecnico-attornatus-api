@@ -1,6 +1,7 @@
 package br.com.attornatus.pessoa.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,11 +49,11 @@ public class PessoaController {
 	}
 	
 	@PutMapping("/{pessoaId}")
-	public ResponseEntity<PessoaDTO> editarPessoa(
+	public  ResponseEntity<PessoaDTO> editarPessoa(
 				@PathVariable Long pessoaId,
-				@RequestBody PessoaRequest pessoaRequest
+				@RequestBody Map<String, Object> pessoaRequest
 			) {
-		return ResponseEntity.ok(pessoaService.atualizarPessoa(pessoaId, mapper.map(pessoaRequest, PessoaDTO.class)));
+		return ResponseEntity.ok(pessoaService.atualizarPessoa(pessoaId, pessoaRequest));
 	}
 	
 	@GetMapping("/endereco/{pessoaId}")

@@ -1,11 +1,14 @@
 package br.com.attornatus.pessoa.service;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
 import br.com.attornatus.pessoa.dto.EnderecoDTO;
 import br.com.attornatus.pessoa.dto.PessoaDTO;
@@ -13,6 +16,7 @@ import br.com.attornatus.pessoa.entity.Endereco;
 import br.com.attornatus.pessoa.entity.Pessoa;
 import br.com.attornatus.pessoa.exception.EntidadeExistenteException;
 import br.com.attornatus.pessoa.exception.EntidadeNaoEncontradaException;
+import br.com.attornatus.pessoa.exception.ParametrosNaoEnviadosException;
 import br.com.attornatus.pessoa.repository.interfaces.IEnderecoRepository;
 import br.com.attornatus.pessoa.repository.interfaces.IPessoaRepository;
 
@@ -51,11 +55,19 @@ public class PessoaService {
 		return pessoaDto;
 	}
 	
-	public PessoaDTO atualizarPessoa(Long id, PessoaDTO pessoaDto) {
-		pessoaDto.setId(id);
-		Pessoa pessoa = mapper.map(pessoaDto, Pessoa.class);
-		pessoa = this.pessoaRepository.save(pessoa);
-		return mapper.map(pessoa, PessoaDTO.class);
+	public PessoaDTO atualizarPessoa(Long id, Map<String, Object> pessoaRequest) {
+		if(pessoaRequest.isEmpty()) {
+			throw new ParametrosNaoEnviadosException("Ao menos um atributo é obrigatório");
+		}
+		PessoaDTO pessoaAtual = this.consultarPessoa(id);
+		pessoaRequest.forEach((propriedadeRequest, valorRequest) -> {
+			Field campoPessoa = ReflectionUtils.findField(PessoaDTO.class, propriedadeRequest);
+			campoPessoa.setAccessible(true);
+			ReflectionUtils.setField(campoPessoa, pessoaAtual, valorRequest);
+		});
+		pessoaAtual.setId(id);
+		pessoaRepository.save(mapper.map(pessoaAtual, Pessoa.class));
+		return pessoaAtual;
 	}
 	
 	public void cadastrarEndereco(Long id, EnderecoDTO enderecoDto) { 
@@ -77,7 +89,7 @@ public class PessoaService {
 	}
 
 	public void informarEnderecoPrincipal(Long pessoaId, EnderecoDTO enderecoDto) {
-		Endereco endereco = enderecoRepository.findEnderecoByCep(enderecoDto.getCep());
+		Endereco endereco = enderecoRepository.consultarPorPessoaAndCep(enderecoDto.getCep(), pessoaId);
 		if(endereco == null) {
 			throw new EntidadeNaoEncontradaException("Endereço não encontrado");
 		}
