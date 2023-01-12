@@ -19,6 +19,7 @@ import br.com.attornatus.pessoa.dto.EnderecoDTO;
 import br.com.attornatus.pessoa.dto.PessoaDTO;
 import br.com.attornatus.pessoa.models.PessoaRequest;
 import br.com.attornatus.pessoa.service.PessoaService;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("attornatus/api/pessoa")
@@ -30,7 +31,7 @@ public class PessoaController {
 	private ModelMapper mapper = new ModelMapper();
 	
 	@PostMapping
-	public ResponseEntity<PessoaDTO> cadastrarPessoa(@RequestBody PessoaRequest pessoaRequest) {
+	public ResponseEntity<PessoaDTO> cadastrarPessoa(@RequestBody @Valid PessoaRequest pessoaRequest) {
 		PessoaDTO pessoaResponse = pessoaService.cadastrarPessoa(mapper.map(pessoaRequest, PessoaDTO.class));
 		return new ResponseEntity<>(pessoaResponse, HttpStatus.CREATED);
 		
