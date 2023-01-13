@@ -4,7 +4,7 @@
 
 ## Endpoints:
 
-> URL_BASE: attornatus/api/pessoa
+> URL_BASE: attornatus/api
 
 ```bash
 # POST
@@ -26,6 +26,9 @@
 
 # Body
 * Sem Body
+
+#Descrição
+* O endereço só é retornado caso tenha algum cadastrado como principal
 
 # Retorno
 * Lista de Pessoas Cadastradas
@@ -73,7 +76,7 @@
 ⚠️ TODOS são obrigatório
 
 # Retorno
-* Cadastra um endereço, esse endereço é retornado na resposta da requisição com o id.
+* Cadastra um endereço para uma pessoa, esse endereço é retornado na resposta da requisição com o id.
 ```
 
 ```bash
@@ -93,6 +96,8 @@
 
 # Body
 * String cep;
+
+⚠️ obrigatório
 
 #Descrição
 * cadastra um endereço principal para a pessoa com o id informado.
