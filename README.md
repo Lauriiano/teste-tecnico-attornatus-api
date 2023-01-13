@@ -16,6 +16,9 @@
 
 ⚠️ ambos são obrigatórios
 
+#Descrição
+* Cadastra uma pessoa
+
 # Retorno
 * Pessoa Cadastrada com o id
 ```
@@ -90,7 +93,7 @@
 * Sem Body
 
 # Retorno
-* Retorna, caso exista, o endereço cadastrado para a pessoa com o id informado
+* caso exista, retorna o endereço cadastrado para a pessoa com o id informado
 ```
 
 ```bash
