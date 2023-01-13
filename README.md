@@ -41,6 +41,9 @@
 # Body
 * Sem Body
 
+#Descrição
+* O endereço só é retornado caso tenha algum cadastrado como principal
+
 # Retorno
 * Pessoas Cadastrada se existir no banco pelo id
 ```
