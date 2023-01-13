@@ -4,7 +4,7 @@
 
 ## Endpoints:
 
-> URL_BASE: attornatus/api
+> URL_BASE: attornatus/api/pessoa
 
 ```bash
 # POST
