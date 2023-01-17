@@ -2,8 +2,6 @@
 
 > Status: Finalizada ☑️
 
-⚠️ Adicionei uma collection do postman para facilitar os testes tanto no heroku quanto local
-
 ## Endpoints:
 
 > URL_BASE: attornatus/api/pessoa
