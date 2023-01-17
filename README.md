@@ -2,9 +2,17 @@
 
 > Status: Finalizada ☑️
 
+⚠️ Adicionei uma collection do postman para facilitar os testes tanto no heroku quanto local
+
 ## Endpoints:
 
 > URL_BASE: attornatus/api/pessoa
+
+## Link para testes do projeto hospedado no heroku:
+
+```bash
+https://teste-attornatus.herokuapp.com/attornatus/api/pessoa/
+```
 
 ```bash
 # POST
